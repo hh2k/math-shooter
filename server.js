@@ -3,7 +3,7 @@ import { readFile } from 'fs/promises';
 import { extname, join } from 'path';
 import { fileURLToPath } from 'url';
 
-const PORT = 8765;
+const PORT = process.env.PORT ?? 80;
 const ROOT = fileURLToPath(new URL('.', import.meta.url));
 
 const MIME = {

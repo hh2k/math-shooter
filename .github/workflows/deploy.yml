@@ -1,0 +1,60 @@
+name: Build Docker Image and Transfer to Server
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-transfer:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Read version from package.json
+      - name: Get version from package.json
+        id: package-version
+        run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
+
+      # Step 3: Build the Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t math-shooter:latest -t math-shooter:${{ steps.package-version.outputs.version }} .
+
+      # Step 4: Save the Docker image as a tar file
+      - name: Save Docker image
+        run: |
+          docker save math-shooter:latest math-shooter:${{ steps.package-version.outputs.version }} -o /tmp/math-shooter.tar
+          chmod 644 /tmp/math-shooter.tar
+          cp /tmp/math-shooter.tar .
+          ls -al .
+
+      # Step 5: Transfer the Docker image to the remote server
+      - name: Transfer Docker image to server
+        uses: easingthemes/ssh-deploy@v5.1.0
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+          REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
+          SOURCE: "math-shooter.tar"
+          TARGET: "/home/deploy/"
+
+      # Step 6: Load the Docker image on the server
+      - name: Load Docker image on server
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          script: |
+            docker stop math-shooter || true
+            docker rm math-shooter || true
+            docker load -i ~/math-shooter.tar
+            docker run -d --name math-shooter -p 5008:80 --restart unless-stopped math-shooter:${{ steps.package-version.outputs.version }}
+            rm ~/math-shooter.tar
