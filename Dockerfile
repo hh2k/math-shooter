@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY index.html style.css server.js package.json ./
 COPY js ./js
-COPY assets ./assets
 
 EXPOSE 80
 
