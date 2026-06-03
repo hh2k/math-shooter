@@ -4,6 +4,8 @@ export class InputManager {
     this.mouseX = 400;
     this.mouseY = 300;
     this._clickQueue = [];
+    this._keysDown = new Set();
+    this._keyQueue = [];
 
     canvas.addEventListener('mousemove', e => {
       const { x, y } = this._toCanvas(e.clientX, e.clientY);
@@ -14,9 +16,19 @@ export class InputManager {
     canvas.addEventListener('click', e => {
       this._clickQueue.push(this._toCanvas(e.clientX, e.clientY));
     });
+
+    window.addEventListener('keydown', e => {
+      if (!this._keysDown.has(e.key)) {
+        this._keyQueue.push(e.key);
+      }
+      this._keysDown.add(e.key);
+    });
+
+    window.addEventListener('keyup', e => {
+      this._keysDown.delete(e.key);
+    });
   }
 
-  // Map viewport coordinates → internal canvas coordinates
   _toCanvas(clientX, clientY) {
     const rect = this.canvas.getBoundingClientRect();
     const scaleX = this.canvas.width  / rect.width;
@@ -31,5 +43,14 @@ export class InputManager {
     const clicks = this._clickQueue.slice();
     this._clickQueue.length = 0;
     return clicks;
+  }
+
+  consumeKey(key) {
+    const idx = this._keyQueue.indexOf(key);
+    if (idx !== -1) {
+      this._keyQueue.splice(idx, 1);
+      return true;
+    }
+    return false;
   }
 }

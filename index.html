@@ -14,11 +14,16 @@
       <h1>Math Shooter</h1>
       <p class="subtitle">Shoot the correct answer!</p>
       <button id="btn-play">Play</button>
+      <button id="btn-daily">Daily Challenge</button>
+      <button id="btn-levelselect">Level Select</button>
+      <button id="btn-settings">Settings</button>
+      <p id="menu-rank" class="rank-label"></p>
       <p id="menu-highscore" class="highscore-label"></p>
+      <p id="menu-daily-score" class="highscore-label daily-label"></p>
       <div class="how-to-play">
         <p>Aim with your mouse and click to shoot.</p>
         <p>Hit the correct answer to earn points.</p>
-        <p>Wrong answers cost a life.</p>
+        <p>Wrong answers cost a life. Press ESC to pause.</p>
       </div>
     </div>
 
@@ -34,6 +39,7 @@
       <p class="subtitle">All levels cleared!</p>
       <p id="win-score" class="score-label"></p>
       <p id="win-highscore" class="highscore-label"></p>
+      <button id="btn-win-endless">Play Endless</button>
       <button id="btn-play-again">Play Again</button>
       <button id="btn-win-menu">Main Menu</button>
     </div>
@@ -51,6 +57,28 @@
       <p id="gameover-highscore" class="highscore-label"></p>
       <button id="btn-replay">Play Again</button>
       <button id="btn-menu">Main Menu</button>
+    </div>
+
+    <!-- Level Select -->
+    <div id="screen-levelselect" class="screen hidden">
+      <h2>Level Select</h2>
+      <p class="subtitle">Levels with ★★ or better unlock the next.</p>
+      <div id="levelselect-grid" class="level-grid"></div>
+      <button id="btn-levelselect-close">Back</button>
+    </div>
+
+    <!-- Settings -->
+    <div id="screen-settings" class="screen hidden">
+      <h2>Settings</h2>
+      <div class="settings-row">
+        <span>Sound</span>
+        <button id="btn-toggle-sound" class="toggle-btn toggle-on">ON</button>
+      </div>
+      <div class="settings-row">
+        <span>Speed Bonus</span>
+        <button id="btn-toggle-speedbonus" class="toggle-btn toggle-on">ON</button>
+      </div>
+      <button id="btn-settings-close">Back</button>
     </div>
   </div>
 
