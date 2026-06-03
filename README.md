@@ -124,14 +124,12 @@ Bullets bounce off the top wall and side walls up to **2 times** before disappea
 ## Running Locally
 
 ```bash
-# Python 3
-python3 -m http.server 8765
-
-# Then open:
-# http://localhost:8765
+node server.js
 ```
 
-No npm, no bundler, no config. The game loads as ES modules directly in the browser.
+Then open http://localhost:8765.
+
+Requires Node.js 18+. No npm install needed — the server uses only built-in Node modules.
 
 ---
 
