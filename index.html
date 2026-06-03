@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Shooter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="game-canvas"></canvas>
+
+    <div id="screen-menu" class="screen">
+      <h1>Math Shooter</h1>
+      <p class="subtitle">Shoot the correct answer!</p>
+      <button id="btn-play">Play</button>
+      <p id="menu-highscore" class="highscore-label"></p>
+      <div class="how-to-play">
+        <p>Aim with your mouse and click to shoot.</p>
+        <p>Hit the correct answer to earn points.</p>
+        <p>Wrong answers cost a life.</p>
+      </div>
+    </div>
+
+    <div id="screen-levelcomplete" class="screen hidden">
+      <h2 id="lc-title">Level Complete!</h2>
+      <div id="lc-stars" class="stars"></div>
+      <p id="lc-score" class="score-label"></p>
+      <button id="btn-next-level">Next Level</button>
+    </div>
+
+    <div id="screen-win" class="screen hidden">
+      <h1>You Win!</h1>
+      <p class="subtitle">All levels cleared!</p>
+      <p id="win-score" class="score-label"></p>
+      <p id="win-highscore" class="highscore-label"></p>
+      <button id="btn-play-again">Play Again</button>
+      <button id="btn-win-menu">Main Menu</button>
+    </div>
+
+    <div id="screen-unlock" class="screen hidden">
+      <div id="unlock-badge">NEW</div>
+      <h2 id="unlock-title"></h2>
+      <p class="subtitle" id="unlock-subtitle"></p>
+      <button id="btn-unlock-go">Let's Go!</button>
+    </div>
+
+    <div id="screen-gameover" class="screen hidden">
+      <h1>Game Over</h1>
+      <p id="final-score" class="score-label">Score: 0</p>
+      <p id="gameover-highscore" class="highscore-label"></p>
+      <button id="btn-replay">Play Again</button>
+      <button id="btn-menu">Main Menu</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

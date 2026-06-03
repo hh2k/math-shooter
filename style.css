@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #060614;
+  overflow: hidden;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+#game-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #060614;
+}
+
+#game-canvas {
+  display: block;
+  cursor: none;
+  background: #0d0d2b;
+  border: 2px solid #1e2460;
+  border-radius: 6px;
+  box-shadow:
+    0 0 0 1px #0a0c2a,
+    0 0 40px rgba(60, 100, 255, 0.18),
+    0 8px 48px rgba(0, 0, 0, 0.6);
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: #fff;
+  background: rgba(6, 6, 20, 0.92);
+}
+
+.screen.hidden {
+  display: none;
+}
+
+.screen h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: #7eb8ff;
+  text-shadow: 0 0 24px rgba(126, 184, 255, 0.5);
+  letter-spacing: 2px;
+}
+
+.screen h2 {
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+}
+
+.screen .subtitle {
+  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  color: #8888aa;
+  margin-bottom: 8px;
+}
+
+.screen button {
+  padding: 14px 52px;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  background: #2a4a8a;
+  color: #fff;
+  border: 2px solid #4a7acc;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: 1px;
+}
+
+.screen button:hover  { background: #3a5aaa; transform: scale(1.04); }
+.screen button:active { transform: scale(0.98); }
+
+.how-to-play {
+  margin-top: 12px;
+  text-align: center;
+  color: #6666aa;
+  font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+  line-height: 1.8;
+}
+
+.score-label {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: #ffdd66;
+}
+
+.highscore-label {
+  font-size: clamp(0.8rem, 1.4vw, 1rem);
+  color: #8888aa;
+  min-height: 1.2em;
+}
+
+#screen-levelcomplete h2 {
+  color: #66eebb;
+  text-shadow: 0 0 20px rgba(100, 220, 180, 0.5);
+  letter-spacing: 2px;
+}
+
+.stars {
+  display: flex;
+  gap: 14px;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  margin: 4px 0;
+}
+
+.star-filled { color: #ffcc00; text-shadow: 0 0 14px rgba(255, 200, 0, 0.7); }
+.star-empty  { color: #2a3050; }
+
+#screen-win h1 {
+  color: #ffdd66;
+  text-shadow: 0 0 24px rgba(255, 210, 80, 0.5);
+}
+
+#screen-unlock h2 {
+  color: #ffe066;
+  text-shadow: 0 0 28px rgba(255, 200, 60, 0.6);
+  letter-spacing: 2px;
+}
+
+#unlock-badge {
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #fff;
+  background: #e05820;
+  padding: 5px 18px;
+  border-radius: 20px;
+  text-shadow: none;
+}
+
+#unlock-subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  color: #aaddff;
+}
