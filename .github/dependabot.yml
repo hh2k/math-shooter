@@ -1,0 +1,19 @@
+version: 2
+updates:
+  # Docker base image: weekly PRs for new minor/patch versions.
+  # Dependabot doesn't report image CVEs, so these PRs are how the pinned image gets fixes.
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions: security fixes only
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0

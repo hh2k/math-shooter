@@ -7,6 +7,10 @@ on:
   pull_request:
     branches:
       - main
+  # Weekly rebuild + deploy to pick up base image / OS security fixes
+  schedule:
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
 
 jobs:
   build-and-transfer:
@@ -20,15 +24,16 @@ jobs:
       # Step 2: Read version from package.json
       - name: Get version from package.json
         id: package-version
-        run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
       # Step 3: Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t math-shooter:latest -t math-shooter:${{ steps.package-version.outputs.version }} .
+          docker build --pull -t math-shooter:latest -t math-shooter:${{ steps.package-version.outputs.version }} .
 
       # Step 4: Save the Docker image as a tar file
       - name: Save Docker image
+        if: github.event_name != 'pull_request'
         run: |
           docker save math-shooter:latest math-shooter:${{ steps.package-version.outputs.version }} -o /tmp/math-shooter.tar
           chmod 644 /tmp/math-shooter.tar
@@ -37,6 +42,7 @@ jobs:
 
       # Step 5: Transfer the Docker image to the remote server
       - name: Transfer Docker image to server
+        if: github.event_name != 'pull_request'
         uses: easingthemes/ssh-deploy@v6.0.3
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
@@ -47,6 +53,7 @@ jobs:
 
       # Step 6: Load the Docker image on the server
       - name: Load Docker image on server
+        if: github.event_name != 'pull_request'
         uses: appleboy/ssh-action@v1.2.5
         with:
           key: ${{ secrets.SERVER_SSH_KEY }}
