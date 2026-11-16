@@ -1,4 +1,4 @@
-FROM node:26.13.0-alpine
+FROM node:26.13.1-alpine
 
 # Latest Alpine security fixes; remove npm (unused at runtime, and its
 # bundled packages show up in CVE scans)
